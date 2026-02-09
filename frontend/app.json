@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Youbolt",
+    "slug": "8d4ba518-e365-4f20-be84-cde8c989f77f",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "manus-ai",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#002623"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.orchids.remixofremixofremixofremixofremixofremixofremixofremixofremixofmanusimwebsiteclone"
+    },
+    "android": {
+      "edgeToEdgeEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#002623"
+      },
+      "package": "com.orchids.remixofremixofremixofremixofremixofremixofremixofremixofremixofmanusimwebsiteclone"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
