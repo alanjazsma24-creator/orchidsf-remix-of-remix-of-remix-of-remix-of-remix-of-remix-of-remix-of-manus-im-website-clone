@@ -76,7 +76,14 @@ function parseBlocks(text: string): ParsedBlock[] {
 
     const paraLines: string[] = [line];
     i++;
-    while (i < lines.length && lines[i].trim() !== '' && !lines[i].startsWith('#') && !lines[i].startsWith('```') && !lines[i].startsWith('> ') && !lines[i].match(/^(\s*)([-*]|\d+\.)\s+/)) {
+    while (
+      i < lines.length &&
+      lines[i].trim() !== '' &&
+      !lines[i].startsWith('#') &&
+      !lines[i].startsWith('```') &&
+      !lines[i].startsWith('> ') &&
+      !lines[i].match(/^(\s*)([-*]|\d+\.)\s+/)
+    ) {
       paraLines.push(lines[i]);
       i++;
     }
@@ -98,27 +105,29 @@ function renderInlineText(text: string, key: string) {
       parts.push(
         <Text key={`${key}-t-${idx++}`} style={{ color: IMPERIAL.text }}>
           {text.slice(lastIndex, match.index)}
-        </Text>,
+        </Text>
       );
     }
 
     if (match[2]) {
       parts.push(
-        <Text key={`${key}-bi-${idx++}`} style={{ color: IMPERIAL.gold, fontWeight: '700', fontStyle: 'italic' }}>
+        <Text
+          key={`${key}-bi-${idx++}`}
+          style={{ color: IMPERIAL.gold, fontWeight: '700', fontStyle: 'italic' }}>
           {match[2]}
-        </Text>,
+        </Text>
       );
     } else if (match[3]) {
       parts.push(
         <Text key={`${key}-b-${idx++}`} style={{ color: IMPERIAL.text, fontWeight: '700' }}>
           {match[3]}
-        </Text>,
+        </Text>
       );
     } else if (match[4]) {
       parts.push(
         <Text key={`${key}-i-${idx++}`} style={{ color: IMPERIAL.text, fontStyle: 'italic' }}>
           {match[4]}
-        </Text>,
+        </Text>
       );
     } else if (match[5]) {
       parts.push(
@@ -129,16 +138,17 @@ function renderInlineText(text: string, key: string) {
             backgroundColor: 'rgba(212, 175, 55, 0.12)',
             fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
             fontSize: 13,
-          }}
-        >
+          }}>
           {` ${match[5]} `}
-        </Text>,
+        </Text>
       );
     } else if (match[6]) {
       parts.push(
-        <Text key={`${key}-s-${idx++}`} style={{ color: IMPERIAL.textTertiary, textDecorationLine: 'line-through' }}>
+        <Text
+          key={`${key}-s-${idx++}`}
+          style={{ color: IMPERIAL.textTertiary, textDecorationLine: 'line-through' }}>
           {match[6]}
-        </Text>,
+        </Text>
       );
     }
 
@@ -149,7 +159,7 @@ function renderInlineText(text: string, key: string) {
     parts.push(
       <Text key={`${key}-end`} style={{ color: IMPERIAL.text }}>
         {text.slice(lastIndex)}
-      </Text>,
+      </Text>
     );
   }
 
@@ -180,8 +190,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   writingDirection: 'rtl',
                   marginTop: 4,
                   marginBottom: 2,
-                }}
-              >
+                }}>
                 {block.text}
               </Text>
             );
@@ -197,8 +206,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   padding: 12,
                   borderWidth: 1,
                   borderColor: IMPERIAL.border,
-                }}
-              >
+                }}>
                 {block.language ? (
                   <Text
                     style={{
@@ -206,8 +214,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                       color: IMPERIAL.gold,
                       marginBottom: 6,
                       fontWeight: '600',
-                    }}
-                  >
+                    }}>
                     {block.language}
                   </Text>
                 ) : null}
@@ -218,8 +225,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                     color: IMPERIAL.text,
                     fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
                   }}
-                  selectable
-                >
+                  selectable>
                   {block.text}
                 </Text>
               </View>
@@ -235,8 +241,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   paddingRight: 12,
                   paddingVertical: 4,
                   marginRight: 4,
-                }}
-              >
+                }}>
                 <Text
                   style={{
                     fontSize: 14,
@@ -245,8 +250,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                     fontStyle: 'italic',
                     textAlign: 'right',
                     writingDirection: 'rtl',
-                  }}
-                >
+                  }}>
                   {block.text}
                 </Text>
               </View>
@@ -256,8 +260,23 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             return (
               <View key={key} style={{ paddingRight: 8, gap: 4 }}>
                 {block.items?.map((item, li) => (
-                  <View key={`${key}-li-${li}`} style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-end', gap: 6 }}>
-                    <Text style={{ flex: 1, fontSize: 14, lineHeight: 22, color: IMPERIAL.text, textAlign: 'right', writingDirection: 'rtl' }}>
+                  <View
+                    key={`${key}-li-${li}`}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'flex-start',
+                      justifyContent: 'flex-end',
+                      gap: 6,
+                    }}>
+                    <Text
+                      style={{
+                        flex: 1,
+                        fontSize: 14,
+                        lineHeight: 22,
+                        color: IMPERIAL.text,
+                        textAlign: 'right',
+                        writingDirection: 'rtl',
+                      }}>
                       {renderInlineText(item, `${key}-li-${li}`)}
                     </Text>
                     <Text style={{ color: IMPERIAL.gold, fontSize: 14, lineHeight: 22 }}>
@@ -280,8 +299,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   textAlign: 'right',
                   writingDirection: 'rtl',
                 }}
-                selectable
-              >
+                selectable>
                 {renderInlineText(block.text, key)}
               </Text>
             );

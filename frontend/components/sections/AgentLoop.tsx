@@ -1,7 +1,6 @@
 import { IMPERIAL } from '@/lib/theme';
 import {
   CheckCircleIcon,
-  CircleDotIcon,
   CircleIcon,
   SearchIcon,
   CodeIcon,
@@ -15,13 +14,49 @@ import { useEffect, useRef, useState } from 'react';
 import { View, Text, Animated, Easing } from 'react-native';
 
 const stages = [
-  { key: 'plan', label: 'التخطيط', labelEn: 'Plan', icon: BrainCircuitIcon, color: IMPERIAL.agent.planning },
-  { key: 'research', label: 'البحث', labelEn: 'Research', icon: SearchIcon, color: IMPERIAL.agent.researching },
+  {
+    key: 'plan',
+    label: 'التخطيط',
+    labelEn: 'Plan',
+    icon: BrainCircuitIcon,
+    color: IMPERIAL.agent.planning,
+  },
+  {
+    key: 'research',
+    label: 'البحث',
+    labelEn: 'Research',
+    icon: SearchIcon,
+    color: IMPERIAL.agent.researching,
+  },
   { key: 'code', label: 'البرمجة', labelEn: 'Code', icon: CodeIcon, color: IMPERIAL.agent.coding },
-  { key: 'test', label: 'الاختبار', labelEn: 'Test', icon: TestTubeIcon, color: IMPERIAL.agent.testing },
-  { key: 'review', label: 'المراجعة', labelEn: 'Review', icon: ScanEyeIcon, color: IMPERIAL.agent.reviewing },
-  { key: 'refine', label: 'التحسين', labelEn: 'Refine', icon: SparklesIcon, color: IMPERIAL.agent.refining },
-  { key: 'deploy', label: 'النشر', labelEn: 'Deploy', icon: RocketIcon, color: IMPERIAL.agent.deploying },
+  {
+    key: 'test',
+    label: 'الاختبار',
+    labelEn: 'Test',
+    icon: TestTubeIcon,
+    color: IMPERIAL.agent.testing,
+  },
+  {
+    key: 'review',
+    label: 'المراجعة',
+    labelEn: 'Review',
+    icon: ScanEyeIcon,
+    color: IMPERIAL.agent.reviewing,
+  },
+  {
+    key: 'refine',
+    label: 'التحسين',
+    labelEn: 'Refine',
+    icon: SparklesIcon,
+    color: IMPERIAL.agent.refining,
+  },
+  {
+    key: 'deploy',
+    label: 'النشر',
+    labelEn: 'Deploy',
+    icon: RocketIcon,
+    color: IMPERIAL.agent.deploying,
+  },
 ];
 
 interface AgentLoopProps {
@@ -29,17 +64,29 @@ interface AgentLoopProps {
   autoAnimate?: boolean;
 }
 
-export default function AgentLoop({ activeStage: initialStage = 2, autoAnimate = true }: AgentLoopProps) {
+export default function AgentLoop({
+  activeStage: initialStage = 2,
+  autoAnimate = true,
+}: AgentLoopProps) {
   const [activeStage, setActiveStage] = useState(initialStage);
   const pulseAnim = useRef(new Animated.Value(0.3)).current;
-  const progressAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(pulseAnim, { toValue: 1, duration: 1000, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
-        Animated.timing(pulseAnim, { toValue: 0.3, duration: 1000, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
-      ]),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 0.3,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ])
     ).start();
 
     if (autoAnimate) {
@@ -48,13 +95,25 @@ export default function AgentLoop({ activeStage: initialStage = 2, autoAnimate =
       }, 3000);
       return () => clearInterval(interval);
     }
-  }, [autoAnimate]);
+  }, [autoAnimate, pulseAnim]);
 
   return (
     <View style={{ marginTop: 32, paddingHorizontal: 16 }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 4,
+        }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-          <View style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 6, backgroundColor: `${stages[activeStage].color}20` }}>
+          <View
+            style={{
+              paddingHorizontal: 8,
+              paddingVertical: 3,
+              borderRadius: 6,
+              backgroundColor: `${stages[activeStage].color}20`,
+            }}>
             <Text style={{ fontSize: 10, color: stages[activeStage].color, fontWeight: '600' }}>
               {stages[activeStage].labelEn}
             </Text>
@@ -64,7 +123,13 @@ export default function AgentLoop({ activeStage: initialStage = 2, autoAnimate =
           محرك Agent Loop
         </Text>
       </View>
-      <Text style={{ fontSize: 12, color: IMPERIAL.textTertiary, marginBottom: 16, textAlign: 'right' }}>
+      <Text
+        style={{
+          fontSize: 12,
+          color: IMPERIAL.textTertiary,
+          marginBottom: 16,
+          textAlign: 'right',
+        }}>
         7 مراحل ذكية لتنفيذ مهامك بدقة
       </Text>
 
@@ -76,8 +141,7 @@ export default function AgentLoop({ activeStage: initialStage = 2, autoAnimate =
           borderColor: IMPERIAL.border,
           padding: 14,
           gap: 4,
-        }}
-      >
+        }}>
         {stages.map((stage, index) => {
           const isCompleted = index < activeStage;
           const isActive = index === activeStage;
@@ -96,9 +160,10 @@ export default function AgentLoop({ activeStage: initialStage = 2, autoAnimate =
                 backgroundColor: isActive ? `${stage.color}15` : 'transparent',
                 borderWidth: isActive ? 1 : 0,
                 borderColor: `${stage.color}40`,
-                opacity: isActive ? pulseAnim.interpolate({ inputRange: [0.3, 1], outputRange: [0.85, 1] }) : 1,
-              }}
-            >
+                opacity: isActive
+                  ? pulseAnim.interpolate({ inputRange: [0.3, 1], outputRange: [0.85, 1] })
+                  : 1,
+              }}>
               {isCompleted ? (
                 <CheckCircleIcon size={16} color={IMPERIAL.success} />
               ) : isActive ? (
@@ -109,22 +174,53 @@ export default function AgentLoop({ activeStage: initialStage = 2, autoAnimate =
                 <CircleIcon size={16} color={IMPERIAL.textTertiary} />
               )}
 
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Text style={{ fontSize: 10, color: isActive ? stage.color : IMPERIAL.textTertiary, fontWeight: '500' }}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: isActive ? stage.color : IMPERIAL.textTertiary,
+                    fontWeight: '500',
+                  }}>
                   {stage.labelEn}
                 </Text>
-                <Text style={{ fontSize: 13, fontWeight: isActive ? '700' : '500', color: isCompleted ? IMPERIAL.success : isActive ? stage.color : IMPERIAL.textTertiary }}>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: isActive ? '700' : '500',
+                    color: isCompleted
+                      ? IMPERIAL.success
+                      : isActive
+                        ? stage.color
+                        : IMPERIAL.textTertiary,
+                  }}>
                   {stage.label}
                 </Text>
               </View>
 
-              <View style={{ width: 40, height: 3, borderRadius: 2, overflow: 'hidden', backgroundColor: 'rgba(255,255,255,0.06)' }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 3,
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                }}>
                 <View
                   style={{
                     width: isCompleted ? '100%' : isActive ? '60%' : '0%',
                     height: '100%',
                     borderRadius: 2,
-                    backgroundColor: isCompleted ? IMPERIAL.success : isActive ? stage.color : 'transparent',
+                    backgroundColor: isCompleted
+                      ? IMPERIAL.success
+                      : isActive
+                        ? stage.color
+                        : 'transparent',
                   }}
                 />
               </View>

@@ -54,8 +54,7 @@ export default function FeatureGrid() {
                 backgroundColor: IMPERIAL.card,
                 padding: 14,
                 gap: 12,
-              }}
-            >
+              }}>
               <View
                 style={{
                   width: 42,
@@ -66,15 +65,18 @@ export default function FeatureGrid() {
                   borderColor: IMPERIAL.border,
                   alignItems: 'center',
                   justifyContent: 'center',
-                }}
-              >
+                }}>
                 <Icon size={20} color={IMPERIAL.gold} />
               </View>
               <View style={{ flex: 1 }}>
                 <Text
                   numberOfLines={1}
-                  style={{ fontSize: 14, fontWeight: '600', color: IMPERIAL.text, textAlign: 'right' }}
-                >
+                  style={{
+                    fontSize: 14,
+                    fontWeight: '600',
+                    color: IMPERIAL.text,
+                    textAlign: 'right',
+                  }}>
                   {feature.title}
                 </Text>
                 <Text
@@ -85,8 +87,7 @@ export default function FeatureGrid() {
                     lineHeight: 18,
                     color: IMPERIAL.textTertiary,
                     textAlign: 'right',
-                  }}
-                >
+                  }}>
                   {feature.desc}
                 </Text>
               </View>

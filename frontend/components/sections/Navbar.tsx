@@ -13,8 +13,7 @@ export default function Navbar() {
         backgroundColor: IMPERIAL.glass,
         borderBottomWidth: 1,
         borderBottomColor: IMPERIAL.border,
-      }}
-    >
+      }}>
       <View
         style={{
           flexDirection: 'row',
@@ -22,12 +21,12 @@ export default function Navbar() {
           justifyContent: 'space-between',
           paddingHorizontal: 16,
           paddingVertical: 8,
-        }}
-      >
+        }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <GoldenEagle size={36} />
           <View>
-            <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold, letterSpacing: 1 }}>
+            <Text
+              style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold, letterSpacing: 1 }}>
               سوريا AI
             </Text>
             <Text style={{ fontSize: 9, color: IMPERIAL.textTertiary, letterSpacing: 0.5 }}>
@@ -46,8 +45,7 @@ export default function Navbar() {
               borderRadius: 10,
               alignItems: 'center',
               justifyContent: 'center',
-            }}
-          >
+            }}>
             <Text style={{ fontSize: 13, fontWeight: '600', color: IMPERIAL.primaryForeground }}>
               تسجيل الدخول
             </Text>
@@ -62,8 +60,7 @@ export default function Navbar() {
               borderColor: IMPERIAL.border,
               alignItems: 'center',
               justifyContent: 'center',
-            }}
-          >
+            }}>
             <Text style={{ fontSize: 13, fontWeight: '500', color: IMPERIAL.text }}>حساب جديد</Text>
           </TouchableOpacity>
         </View>

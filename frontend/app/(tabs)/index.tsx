@@ -12,13 +12,11 @@ export default function HomeScreen() {
     <KeyboardAvoidingView
       className="flex-1"
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ backgroundColor: IMPERIAL.background }}
-    >
+      style={{ backgroundColor: IMPERIAL.background }}>
       <ScrollView
         className="flex-1"
         keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
+        showsVerticalScrollIndicator={false}>
         <Navbar />
         <AnnouncementBar />
         <HeroChat />

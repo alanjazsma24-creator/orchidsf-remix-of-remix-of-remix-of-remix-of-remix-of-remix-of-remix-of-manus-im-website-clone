@@ -15,7 +15,6 @@ import {
   LayoutTemplateIcon,
   BrainCircuitIcon,
   SearchIcon,
-  ChevronLeftIcon,
 } from 'lucide-react-native';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -63,20 +62,45 @@ export default function DashboardScreen() {
       className="flex-1"
       style={{ backgroundColor: IMPERIAL.background }}
       contentContainerStyle={{ paddingTop: insets.top + 8, paddingBottom: 40 }}
-      showsVerticalScrollIndicator={false}
-    >
-      <View style={{ paddingHorizontal: 16, marginBottom: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: IMPERIAL.accent, borderWidth: 1, borderColor: IMPERIAL.border, alignItems: 'center', justifyContent: 'center' }}>
+      showsVerticalScrollIndicator={false}>
+      <View
+        style={{
+          paddingHorizontal: 16,
+          marginBottom: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <View
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: 18,
+            backgroundColor: IMPERIAL.accent,
+            borderWidth: 1,
+            borderColor: IMPERIAL.border,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <GoldenEagle size={22} />
         </View>
         <View style={{ alignItems: 'flex-end' }}>
           <Text style={{ fontSize: 22, fontWeight: '700', color: IMPERIAL.gold }}>لوحة التحكم</Text>
-          <Text style={{ fontSize: 12, color: IMPERIAL.textTertiary }}>إدارة النظام والإحصائيات</Text>
+          <Text style={{ fontSize: 12, color: IMPERIAL.textTertiary }}>
+            إدارة النظام والإحصائيات
+          </Text>
         </View>
       </View>
 
       <View style={{ paddingHorizontal: 16, marginBottom: 20 }}>
-        <Text style={{ fontSize: 14, fontWeight: '700', color: IMPERIAL.gold, textAlign: 'right', marginBottom: 10 }}>
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: '700',
+            color: IMPERIAL.gold,
+            textAlign: 'right',
+            marginBottom: 10,
+          }}>
           الوصول السريع
         </Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
@@ -96,12 +120,28 @@ export default function DashboardScreen() {
                   padding: 12,
                   alignItems: 'center',
                   gap: 6,
-                }}
-              >
-                <View style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: IMPERIAL.accent, borderWidth: 1, borderColor: IMPERIAL.border, alignItems: 'center', justifyContent: 'center' }}>
+                }}>
+                <View
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 10,
+                    backgroundColor: IMPERIAL.accent,
+                    borderWidth: 1,
+                    borderColor: IMPERIAL.border,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
                   <Icon size={18} color={IMPERIAL.gold} />
                 </View>
-                <Text style={{ fontSize: 10, color: IMPERIAL.text, fontWeight: '500', textAlign: 'center' }} numberOfLines={1}>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: IMPERIAL.text,
+                    fontWeight: '500',
+                    textAlign: 'center',
+                  }}
+                  numberOfLines={1}>
                   {link.label}
                 </Text>
               </TouchableOpacity>
@@ -115,13 +155,46 @@ export default function DashboardScreen() {
           {stats.slice(0, 2).map((s) => {
             const Icon = s.icon;
             return (
-              <View key={s.label} style={{ flex: 1, backgroundColor: IMPERIAL.card, borderRadius: 14, borderWidth: 1, borderColor: IMPERIAL.border, padding: 14 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                  <Text style={{ fontSize: 11, color: IMPERIAL.success, fontWeight: '600' }}>{s.change}</Text>
+              <View
+                key={s.label}
+                style={{
+                  flex: 1,
+                  backgroundColor: IMPERIAL.card,
+                  borderRadius: 14,
+                  borderWidth: 1,
+                  borderColor: IMPERIAL.border,
+                  padding: 14,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: 10,
+                  }}>
+                  <Text style={{ fontSize: 11, color: IMPERIAL.success, fontWeight: '600' }}>
+                    {s.change}
+                  </Text>
                   <Icon size={18} color={IMPERIAL.gold} />
                 </View>
-                <Text style={{ fontSize: 22, fontWeight: '700', color: IMPERIAL.text, textAlign: 'right' }}>{s.value}</Text>
-                <Text style={{ fontSize: 12, color: IMPERIAL.textTertiary, textAlign: 'right', marginTop: 2 }}>{s.label}</Text>
+                <Text
+                  style={{
+                    fontSize: 22,
+                    fontWeight: '700',
+                    color: IMPERIAL.text,
+                    textAlign: 'right',
+                  }}>
+                  {s.value}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: IMPERIAL.textTertiary,
+                    textAlign: 'right',
+                    marginTop: 2,
+                  }}>
+                  {s.label}
+                </Text>
               </View>
             );
           })}
@@ -130,13 +203,46 @@ export default function DashboardScreen() {
           {stats.slice(2).map((s) => {
             const Icon = s.icon;
             return (
-              <View key={s.label} style={{ flex: 1, backgroundColor: IMPERIAL.card, borderRadius: 14, borderWidth: 1, borderColor: IMPERIAL.border, padding: 14 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                  <Text style={{ fontSize: 11, color: IMPERIAL.success, fontWeight: '600' }}>{s.change}</Text>
+              <View
+                key={s.label}
+                style={{
+                  flex: 1,
+                  backgroundColor: IMPERIAL.card,
+                  borderRadius: 14,
+                  borderWidth: 1,
+                  borderColor: IMPERIAL.border,
+                  padding: 14,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: 10,
+                  }}>
+                  <Text style={{ fontSize: 11, color: IMPERIAL.success, fontWeight: '600' }}>
+                    {s.change}
+                  </Text>
                   <Icon size={18} color={IMPERIAL.gold} />
                 </View>
-                <Text style={{ fontSize: 22, fontWeight: '700', color: IMPERIAL.text, textAlign: 'right' }}>{s.value}</Text>
-                <Text style={{ fontSize: 12, color: IMPERIAL.textTertiary, textAlign: 'right', marginTop: 2 }}>{s.label}</Text>
+                <Text
+                  style={{
+                    fontSize: 22,
+                    fontWeight: '700',
+                    color: IMPERIAL.text,
+                    textAlign: 'right',
+                  }}>
+                  {s.value}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: IMPERIAL.textTertiary,
+                    textAlign: 'right',
+                    marginTop: 2,
+                  }}>
+                  {s.label}
+                </Text>
               </View>
             );
           })}
@@ -144,14 +250,42 @@ export default function DashboardScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 16, marginBottom: 24 }}>
-        <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold, textAlign: 'right', marginBottom: 12 }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: '700',
+            color: IMPERIAL.gold,
+            textAlign: 'right',
+            marginBottom: 12,
+          }}>
           نشاط الأسبوع
         </Text>
-        <View style={{ backgroundColor: IMPERIAL.card, borderRadius: 14, borderWidth: 1, borderColor: IMPERIAL.border, padding: 16 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-around', height: 100 }}>
+        <View
+          style={{
+            backgroundColor: IMPERIAL.card,
+            borderRadius: 14,
+            borderWidth: 1,
+            borderColor: IMPERIAL.border,
+            padding: 16,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+              justifyContent: 'space-around',
+              height: 100,
+            }}>
             {chartBars.map((bar) => (
               <View key={bar.label} style={{ alignItems: 'center', gap: 6 }}>
-                <View style={{ width: 24, height: bar.h, borderRadius: 6, backgroundColor: IMPERIAL.gold, opacity: 0.8 }} />
+                <View
+                  style={{
+                    width: 24,
+                    height: bar.h,
+                    borderRadius: 6,
+                    backgroundColor: IMPERIAL.gold,
+                    opacity: 0.8,
+                  }}
+                />
                 <Text style={{ fontSize: 10, color: IMPERIAL.textTertiary }}>{bar.label}</Text>
               </View>
             ))}
@@ -160,18 +294,52 @@ export default function DashboardScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 16 }}>
-        <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold, textAlign: 'right', marginBottom: 12 }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: '700',
+            color: IMPERIAL.gold,
+            textAlign: 'right',
+            marginBottom: 12,
+          }}>
           حالة النظام
         </Text>
-        <View style={{ backgroundColor: IMPERIAL.card, borderRadius: 14, borderWidth: 1, borderColor: IMPERIAL.border, overflow: 'hidden' }}>
+        <View
+          style={{
+            backgroundColor: IMPERIAL.card,
+            borderRadius: 14,
+            borderWidth: 1,
+            borderColor: IMPERIAL.border,
+            overflow: 'hidden',
+          }}>
           {systemStatus.map((item, index) => {
             const Icon = item.icon;
             return (
-              <View key={item.label} style={{ flexDirection: 'row', alignItems: 'center', padding: 14, borderBottomWidth: index < systemStatus.length - 1 ? 1 : 0, borderBottomColor: IMPERIAL.border, gap: 10 }}>
-                <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: item.ok ? IMPERIAL.success : IMPERIAL.error }} />
-                <Text style={{ fontSize: 13, color: IMPERIAL.textSecondary, flex: 0 }}>{item.status}</Text>
+              <View
+                key={item.label}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  padding: 14,
+                  borderBottomWidth: index < systemStatus.length - 1 ? 1 : 0,
+                  borderBottomColor: IMPERIAL.border,
+                  gap: 10,
+                }}>
+                <View
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: 4,
+                    backgroundColor: item.ok ? IMPERIAL.success : IMPERIAL.error,
+                  }}
+                />
+                <Text style={{ fontSize: 13, color: IMPERIAL.textSecondary, flex: 0 }}>
+                  {item.status}
+                </Text>
                 <View style={{ flex: 1 }} />
-                <Text style={{ fontSize: 14, fontWeight: '600', color: IMPERIAL.text }}>{item.label}</Text>
+                <Text style={{ fontSize: 14, fontWeight: '600', color: IMPERIAL.text }}>
+                  {item.label}
+                </Text>
                 <Icon size={18} color={IMPERIAL.gold} />
               </View>
             );

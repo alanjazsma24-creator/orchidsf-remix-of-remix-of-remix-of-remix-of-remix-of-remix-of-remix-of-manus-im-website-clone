@@ -1,6 +1,6 @@
 import { IMPERIAL } from '@/lib/theme';
 import { SparklesIcon } from 'lucide-react-native';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 export default function AnnouncementBar() {
   return (
@@ -16,8 +16,7 @@ export default function AnnouncementBar() {
         alignItems: 'center',
         justifyContent: 'center',
         gap: 8,
-      }}
-    >
+      }}>
       <SparklesIcon size={14} color={IMPERIAL.gold} />
       <Text style={{ fontSize: 13, fontWeight: '600', color: IMPERIAL.gold, textAlign: 'center' }}>
         محرك Manus AI — 7 مراحل ذكية لتنفيذ مهامك
