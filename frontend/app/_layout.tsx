@@ -15,12 +15,7 @@ export default function RootLayout() {
     <ErrorBoundary>
       <ThemeProvider value={NAV_THEME.dark}>
         <StatusBar style="light" backgroundColor={IMPERIAL.background} />
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: IMPERIAL.background },
-          }}
-        />
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: IMPERIAL.background } }} />
       </ThemeProvider>
     </ErrorBoundary>
   );

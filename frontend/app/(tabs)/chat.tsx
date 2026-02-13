@@ -13,6 +13,7 @@ import {
   SearchIcon,
   HistoryIcon,
   PlusCircleIcon,
+  StopCircleIcon,
 } from 'lucide-react-native';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import {
@@ -33,7 +34,7 @@ import { BACKEND_URL } from '@/lib/api';
 
 interface ProviderData {
   name: string;
-  staticModels: { name: string; label: string; provider: string; maxTokenAllowed: number }[];
+  staticModels: Array<{ name: string; label: string; provider: string; maxTokenAllowed: number }>;
   hasDynamicModels: boolean;
   isEnabled: boolean;
 }
@@ -55,11 +56,22 @@ export default function ChatScreen() {
     activeSessionId,
     switchSession,
     deleteSession,
+    createSession,
   } = useChat();
-  const { selectedProvider, selectedModel, setSelectedProvider, setSelectedModel, loadSettings } =
-    useSettingsStore();
+  const { selectedProvider, selectedModel, setSelectedProvider, setSelectedModel, loadSettings } = useSettingsStore();
 
-  const fetchProviders = useCallback(async () => {
+  useEffect(() => {
+    loadSettings();
+    fetchProviders();
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
+    }
+  }, [messages]);
+
+  const fetchProviders = async () => {
     try {
       const res = await fetch(`${BACKEND_URL}/api/providers`, {
         headers: { 'ngrok-skip-browser-warning': 'true' },
@@ -69,18 +81,7 @@ export default function ChatScreen() {
     } catch {
       // ignore
     }
-  }, []);
-
-  useEffect(() => {
-    loadSettings();
-    fetchProviders();
-  }, [loadSettings, fetchProviders]);
-
-  useEffect(() => {
-    if (messages.length > 0) {
-      setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
-    }
-  }, [messages]);
+  };
 
   const handleSend = useCallback(() => {
     if (!inputValue.trim() || isStreaming) return;
@@ -104,7 +105,7 @@ export default function ChatScreen() {
           !modelSearch ||
           m.label.toLowerCase().includes(modelSearch.toLowerCase()) ||
           m.name.toLowerCase().includes(modelSearch.toLowerCase()) ||
-          p.name.toLowerCase().includes(modelSearch.toLowerCase())
+          p.name.toLowerCase().includes(modelSearch.toLowerCase()),
       ),
     }))
     .filter((p) => p.staticModels.length > 0);
@@ -113,13 +114,8 @@ export default function ChatScreen() {
     <View style={{ paddingHorizontal: 16, paddingVertical: 6 }}>
       {item.role === 'assistant' && (
         <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 6,
-            marginBottom: 4,
-            alignSelf: 'flex-end',
-          }}>
+          style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4, alignSelf: 'flex-end' }}
+        >
           <Text style={{ fontSize: 11, color: IMPERIAL.gold, fontWeight: '600' }}>سوريا AI</Text>
           <GoldenEagle size={16} />
         </View>
@@ -134,7 +130,8 @@ export default function ChatScreen() {
           borderWidth: 1,
           borderColor: item.role === 'user' ? IMPERIAL.gold : IMPERIAL.border,
           alignSelf: item.role === 'user' ? 'flex-start' : 'flex-end',
-        }}>
+        }}
+      >
         {item.role === 'assistant' && item.isStreaming && !item.content ? (
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <ActivityIndicator size="small" color={IMPERIAL.gold} />
@@ -150,7 +147,8 @@ export default function ChatScreen() {
               color: IMPERIAL.primaryForeground,
               textAlign: 'right',
               writingDirection: 'rtl',
-            }}>
+            }}
+          >
             {item.content}
           </Text>
         )}
@@ -172,7 +170,8 @@ export default function ChatScreen() {
     <KeyboardAvoidingView
       className="flex-1"
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ backgroundColor: IMPERIAL.background }}>
+      style={{ backgroundColor: IMPERIAL.background }}
+    >
       <View
         style={{
           paddingTop: insets.top + 8,
@@ -184,7 +183,8 @@ export default function ChatScreen() {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-        }}>
+        }}
+      >
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           {messages.length > 0 && (
             <TouchableOpacity onPress={handleNewChat} style={{ padding: 4 }}>
@@ -209,7 +209,8 @@ export default function ChatScreen() {
             borderWidth: 1,
             borderColor: IMPERIAL.border,
             maxWidth: 180,
-          }}>
+          }}
+        >
           <ChevronDownIcon size={14} color={IMPERIAL.gold} />
           <Text style={{ fontSize: 12, color: IMPERIAL.gold, fontWeight: '600' }} numberOfLines={1}>
             {currentModel?.label || selectedModel.split('/').pop()}
@@ -231,7 +232,8 @@ export default function ChatScreen() {
               color: IMPERIAL.gold,
               textAlign: 'center',
               marginTop: 16,
-            }}>
+            }}
+          >
             ابدأ محادثة جديدة
           </Text>
           <Text
@@ -241,7 +243,8 @@ export default function ChatScreen() {
               textAlign: 'center',
               marginTop: 8,
               lineHeight: 22,
-            }}>
+            }}
+          >
             اسأل أي سؤال أو أسند مهمة للمساعد الذكي
           </Text>
           <View
@@ -253,7 +256,8 @@ export default function ChatScreen() {
               backgroundColor: IMPERIAL.accent,
               borderWidth: 1,
               borderColor: IMPERIAL.border,
-            }}>
+            }}
+          >
             <Text style={{ fontSize: 11, color: IMPERIAL.textSecondary }}>
               {selectedProvider} · {currentModel?.label || selectedModel.split('/').pop()}
             </Text>
@@ -272,7 +276,8 @@ export default function ChatScreen() {
                 borderRadius: 12,
                 borderWidth: 1,
                 borderColor: IMPERIAL.border,
-              }}>
+              }}
+            >
               <Text style={{ fontSize: 13, color: IMPERIAL.gold, fontWeight: '600' }}>
                 {sessions.length} محادثة سابقة
               </Text>
@@ -304,7 +309,8 @@ export default function ChatScreen() {
             paddingHorizontal: 12,
             paddingVertical: 8,
             gap: 8,
-          }}>
+          }}
+        >
           <TouchableOpacity
             style={{
               width: 34,
@@ -314,7 +320,8 @@ export default function ChatScreen() {
               borderColor: IMPERIAL.border,
               alignItems: 'center',
               justifyContent: 'center',
-            }}>
+            }}
+          >
             <PlusIcon size={18} color={IMPERIAL.textSecondary} />
           </TouchableOpacity>
 
@@ -347,9 +354,9 @@ export default function ChatScreen() {
               borderRadius: 17,
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor:
-                inputValue.trim() && !isStreaming ? IMPERIAL.primary : IMPERIAL.accent,
-            }}>
+              backgroundColor: inputValue.trim() && !isStreaming ? IMPERIAL.primary : IMPERIAL.accent,
+            }}
+          >
             {isStreaming ? (
               <ActivityIndicator size="small" color={IMPERIAL.gold} />
             ) : (
@@ -373,7 +380,8 @@ export default function ChatScreen() {
               maxHeight: '75%',
               borderWidth: 1,
               borderColor: IMPERIAL.border,
-            }}>
+            }}
+          >
             <View
               style={{
                 flexDirection: 'row',
@@ -382,17 +390,12 @@ export default function ChatScreen() {
                 padding: 16,
                 borderBottomWidth: 1,
                 borderBottomColor: IMPERIAL.border,
-              }}>
-              <TouchableOpacity
-                onPress={() => {
-                  setShowModelPicker(false);
-                  setModelSearch('');
-                }}>
+              }}
+            >
+              <TouchableOpacity onPress={() => { setShowModelPicker(false); setModelSearch(''); }}>
                 <XIcon size={20} color={IMPERIAL.textTertiary} />
               </TouchableOpacity>
-              <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold }}>
-                اختر النموذج
-              </Text>
+              <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold }}>اختر النموذج</Text>
             </View>
             <View
               style={{
@@ -406,7 +409,8 @@ export default function ChatScreen() {
                 flexDirection: 'row',
                 alignItems: 'center',
                 paddingHorizontal: 12,
-              }}>
+              }}
+            >
               <SearchIcon size={16} color={IMPERIAL.textTertiary} />
               <TextInput
                 placeholder="ابحث عن نموذج..."
@@ -423,36 +427,15 @@ export default function ChatScreen() {
                 }}
               />
             </View>
-            <ScrollView
-              style={{ padding: 16 }}
-              contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}>
+            <ScrollView style={{ padding: 16 }} contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}>
               {filteredProviders.map((provider) => (
                 <View key={provider.name} style={{ marginBottom: 16 }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'flex-end',
-                      gap: 8,
-                      marginBottom: 8,
-                    }}>
-                    <Text style={{ fontSize: 13, fontWeight: '700', color: IMPERIAL.gold }}>
-                      {provider.name}
-                    </Text>
-                    <View
-                      style={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: 4,
-                        backgroundColor: provider.isEnabled
-                          ? IMPERIAL.success
-                          : IMPERIAL.textTertiary,
-                      }}
-                    />
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 8, marginBottom: 8 }}>
+                    <Text style={{ fontSize: 13, fontWeight: '700', color: IMPERIAL.gold }}>{provider.name}</Text>
+                    <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: provider.isEnabled ? IMPERIAL.success : IMPERIAL.textTertiary }} />
                   </View>
                   {provider.staticModels.map((model) => {
-                    const isSelected =
-                      selectedProvider === provider.name && selectedModel === model.name;
+                    const isSelected = selectedProvider === provider.name && selectedModel === model.name;
                     return (
                       <TouchableOpacity
                         key={model.name}
@@ -473,23 +456,14 @@ export default function ChatScreen() {
                           alignItems: 'center',
                           justifyContent: 'flex-end',
                           gap: 8,
-                        }}>
+                        }}
+                      >
                         {isSelected && (
                           <View
-                            style={{
-                              width: 8,
-                              height: 8,
-                              borderRadius: 4,
-                              backgroundColor: IMPERIAL.success,
-                            }}
+                            style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: IMPERIAL.success }}
                           />
                         )}
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            color: isSelected ? IMPERIAL.gold : IMPERIAL.text,
-                            fontWeight: isSelected ? '600' : '400',
-                          }}>
+                        <Text style={{ fontSize: 14, color: isSelected ? IMPERIAL.gold : IMPERIAL.text, fontWeight: isSelected ? '600' : '400' }}>
                           {model.label}
                         </Text>
                       </TouchableOpacity>
@@ -498,13 +472,7 @@ export default function ChatScreen() {
                 </View>
               ))}
               {filteredProviders.length === 0 && (
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    color: IMPERIAL.textTertiary,
-                    fontSize: 14,
-                    marginTop: 20,
-                  }}>
+                <Text style={{ textAlign: 'center', color: IMPERIAL.textTertiary, fontSize: 14, marginTop: 20 }}>
                   لا توجد نتائج
                 </Text>
               )}
@@ -523,7 +491,8 @@ export default function ChatScreen() {
               maxHeight: '70%',
               borderWidth: 1,
               borderColor: IMPERIAL.border,
-            }}>
+            }}
+          >
             <View
               style={{
                 flexDirection: 'row',
@@ -532,32 +501,24 @@ export default function ChatScreen() {
                 padding: 16,
                 borderBottomWidth: 1,
                 borderBottomColor: IMPERIAL.border,
-              }}>
+              }}
+            >
               <TouchableOpacity onPress={() => setShowHistory(false)}>
                 <XIcon size={20} color={IMPERIAL.textTertiary} />
               </TouchableOpacity>
-              <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold }}>
-                سجل المحادثات
-              </Text>
+              <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold }}>سجل المحادثات</Text>
               <TouchableOpacity
                 onPress={() => {
                   handleNewChat();
                   setShowHistory(false);
-                }}>
+                }}
+              >
                 <PlusCircleIcon size={20} color={IMPERIAL.gold} />
               </TouchableOpacity>
             </View>
-            <ScrollView
-              style={{ padding: 16 }}
-              contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}>
+            <ScrollView style={{ padding: 16 }} contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}>
               {sessions.length === 0 ? (
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    color: IMPERIAL.textTertiary,
-                    fontSize: 14,
-                    marginTop: 20,
-                  }}>
+                <Text style={{ textAlign: 'center', color: IMPERIAL.textTertiary, fontSize: 14, marginTop: 20 }}>
                   لا توجد محادثات سابقة
                 </Text>
               ) : (
@@ -571,36 +532,32 @@ export default function ChatScreen() {
                     style={{
                       padding: 14,
                       borderRadius: 12,
-                      backgroundColor:
-                        session.id === activeSessionId ? IMPERIAL.accent : 'transparent',
+                      backgroundColor: session.id === activeSessionId ? IMPERIAL.accent : 'transparent',
                       borderWidth: session.id === activeSessionId ? 1 : 0,
                       borderColor: IMPERIAL.gold,
                       marginBottom: 8,
                       flexDirection: 'row',
                       alignItems: 'center',
                       gap: 10,
-                    }}>
+                    }}
+                  >
                     <TouchableOpacity
                       onPress={(e) => {
                         e.stopPropagation();
                         deleteSession(session.id);
                       }}
-                      style={{ padding: 4 }}>
+                      style={{ padding: 4 }}
+                    >
                       <Trash2Icon size={14} color={IMPERIAL.error} />
                     </TouchableOpacity>
                     <View style={{ flex: 1, alignItems: 'flex-end' }}>
                       <Text
                         style={{ fontSize: 14, fontWeight: '600', color: IMPERIAL.text }}
-                        numberOfLines={1}>
+                        numberOfLines={1}
+                      >
                         {session.title}
                       </Text>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 8,
-                          marginTop: 4,
-                        }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
                         <Text style={{ fontSize: 11, color: IMPERIAL.textTertiary }}>
                           {formatTime(session.updatedAt)}
                         </Text>

@@ -48,7 +48,8 @@ export default function HeroChat() {
           marginTop: 16,
           marginBottom: 4,
           letterSpacing: 1,
-        }}>
+        }}
+      >
         سوريا AI
       </Text>
       <Text
@@ -59,7 +60,8 @@ export default function HeroChat() {
           marginBottom: 6,
           fontWeight: '600',
           letterSpacing: 0.5,
-        }}>
+        }}
+      >
         منصة الذكاء الاصطناعي السورية
       </Text>
       <Text
@@ -69,7 +71,8 @@ export default function HeroChat() {
           textAlign: 'center',
           marginBottom: 28,
           lineHeight: 22,
-        }}>
+        }}
+      >
         مساعدك الذكي — كيف يمكنني مساعدتك اليوم؟
       </Text>
 
@@ -86,7 +89,8 @@ export default function HeroChat() {
             shadowOpacity: 0.12,
             shadowRadius: 24,
             elevation: 4,
-          }}>
+          }}
+        >
           <View style={{ paddingHorizontal: 16, paddingTop: 14, minHeight: 70 }}>
             <TextInput
               placeholder="أسند مهمة أو اسأل أي سؤال..."
@@ -114,7 +118,8 @@ export default function HeroChat() {
               justifyContent: 'space-between',
               paddingHorizontal: 12,
               paddingBottom: 12,
-            }}>
+            }}
+          >
             <TouchableOpacity
               style={{
                 width: 34,
@@ -124,7 +129,8 @@ export default function HeroChat() {
                 borderColor: IMPERIAL.border,
                 alignItems: 'center',
                 justifyContent: 'center',
-              }}>
+              }}
+            >
               <PlusIcon size={18} color={IMPERIAL.textSecondary} />
             </TouchableOpacity>
 
@@ -138,7 +144,8 @@ export default function HeroChat() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: inputValue.trim() ? IMPERIAL.primary : IMPERIAL.accent,
-              }}>
+              }}
+            >
               <ArrowUpIcon
                 size={16}
                 strokeWidth={3}
@@ -155,7 +162,8 @@ export default function HeroChat() {
             justifyContent: 'center',
             marginTop: 18,
             gap: 8,
-          }}>
+          }}
+        >
           {suggestionTags.map((tag, index) => {
             const Icon = tag.icon;
             return (
@@ -173,7 +181,8 @@ export default function HeroChat() {
                   alignItems: 'center',
                   gap: 6,
                   backgroundColor: IMPERIAL.glass,
-                }}>
+                }}
+              >
                 <Icon size={16} color={IMPERIAL.gold} />
                 <Text style={{ fontSize: 13, color: IMPERIAL.text }}>{tag.label}</Text>
               </TouchableOpacity>

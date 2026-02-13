@@ -20,38 +20,14 @@ import {
   SaveIcon,
 } from 'lucide-react-native';
 import { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Modal,
-  TextInput,
-  Alert,
-  Platform,
-} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const PROVIDER_KEYS = [
-  {
-    provider: 'OpenRouter',
-    envKey: 'OPEN_ROUTER_API_KEY',
-    label: 'OpenRouter',
-    placeholder: 'sk-or-...',
-  },
-  {
-    provider: 'Anthropic',
-    envKey: 'ANTHROPIC_API_KEY',
-    label: 'Anthropic',
-    placeholder: 'sk-ant-...',
-  },
+  { provider: 'OpenRouter', envKey: 'OPEN_ROUTER_API_KEY', label: 'OpenRouter', placeholder: 'sk-or-...' },
+  { provider: 'Anthropic', envKey: 'ANTHROPIC_API_KEY', label: 'Anthropic', placeholder: 'sk-ant-...' },
   { provider: 'OpenAI', envKey: 'OPENAI_API_KEY', label: 'OpenAI', placeholder: 'sk-...' },
-  {
-    provider: 'Google',
-    envKey: 'GOOGLE_GENERATIVE_AI_API_KEY',
-    label: 'Google AI',
-    placeholder: 'AIza...',
-  },
+  { provider: 'Google', envKey: 'GOOGLE_GENERATIVE_AI_API_KEY', label: 'Google AI', placeholder: 'AIza...' },
   { provider: 'Groq', envKey: 'GROQ_API_KEY', label: 'Groq', placeholder: 'gsk_...' },
   { provider: 'Mistral', envKey: 'MISTRAL_API_KEY', label: 'Mistral', placeholder: '' },
   { provider: 'DeepSeek', envKey: 'DEEPSEEK_API_KEY', label: 'DeepSeek', placeholder: 'sk-...' },
@@ -63,18 +39,8 @@ const settingsGroups = [
   {
     title: 'الذكاء الاصطناعي',
     items: [
-      {
-        icon: BrainCircuitIcon,
-        label: 'مفاتيح API',
-        subtitle: 'إدارة مفاتيح الموفرين',
-        action: 'apikeys',
-      },
-      {
-        icon: KeyIcon,
-        label: 'النموذج الافتراضي',
-        subtitle: 'اختيار النموذج والموفر',
-        action: 'model',
-      },
+      { icon: BrainCircuitIcon, label: 'مفاتيح API', subtitle: 'إدارة مفاتيح الموفرين', action: 'apikeys' },
+      { icon: KeyIcon, label: 'النموذج الافتراضي', subtitle: 'اختيار النموذج والموفر', action: 'model' },
     ],
   },
   {
@@ -108,7 +74,7 @@ export default function SettingsScreen() {
 
   useEffect(() => {
     loadSettings();
-  }, [loadSettings]);
+  }, []);
 
   const openApiKeys = () => {
     setTempKeys({ ...apiKeys });
@@ -145,7 +111,8 @@ export default function SettingsScreen() {
       className="flex-1"
       style={{ backgroundColor: IMPERIAL.background }}
       contentContainerStyle={{ paddingTop: insets.top + 8, paddingBottom: 40 }}
-      showsVerticalScrollIndicator={false}>
+      showsVerticalScrollIndicator={false}
+    >
       <View style={{ paddingHorizontal: 16, marginBottom: 20 }}>
         <Text style={{ fontSize: 22, fontWeight: '700', color: IMPERIAL.gold, textAlign: 'right' }}>
           الإعدادات
@@ -163,12 +130,11 @@ export default function SettingsScreen() {
             flexDirection: 'row',
             alignItems: 'center',
             gap: 12,
-          }}>
+          }}
+        >
           <ChevronLeftIcon size={18} color={IMPERIAL.textTertiary} />
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <Text style={{ fontSize: 16, fontWeight: '600', color: IMPERIAL.text }}>
-              مستخدم سوريا AI
-            </Text>
+            <Text style={{ fontSize: 16, fontWeight: '600', color: IMPERIAL.text }}>مستخدم سوريا AI</Text>
             <Text style={{ fontSize: 12, color: IMPERIAL.textTertiary }}>user@syria-ai.com</Text>
           </View>
           <View
@@ -181,7 +147,8 @@ export default function SettingsScreen() {
               borderColor: IMPERIAL.border,
               alignItems: 'center',
               justifyContent: 'center',
-            }}>
+            }}
+          >
             <GoldenEagle size={30} />
           </View>
         </View>
@@ -197,7 +164,8 @@ export default function SettingsScreen() {
               textAlign: 'right',
               marginBottom: 8,
               paddingRight: 4,
-            }}>
+            }}
+          >
             {group.title}
           </Text>
           <View
@@ -207,18 +175,15 @@ export default function SettingsScreen() {
               borderWidth: 1,
               borderColor: IMPERIAL.border,
               overflow: 'hidden',
-            }}>
+            }}
+          >
             {group.items.map((item, index) => {
               const Icon = item.icon;
               return (
                 <TouchableOpacity
                   key={item.label}
                   activeOpacity={0.7}
-                  onPress={() =>
-                    handleItemPress(
-                      'action' in item ? (item as { action?: string }).action : undefined
-                    )
-                  }
+                  onPress={() => handleItemPress('action' in item ? (item as { action?: string }).action : undefined)}
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -226,7 +191,8 @@ export default function SettingsScreen() {
                     gap: 10,
                     borderBottomWidth: index < group.items.length - 1 ? 1 : 0,
                     borderBottomColor: IMPERIAL.border,
-                  }}>
+                  }}
+                >
                   <ChevronLeftIcon size={16} color={IMPERIAL.textTertiary} />
                   {'badge' in item && item.badge && (
                     <View
@@ -235,16 +201,15 @@ export default function SettingsScreen() {
                         paddingVertical: 2,
                         borderRadius: 6,
                         backgroundColor: 'rgba(74, 222, 128, 0.15)',
-                      }}>
+                      }}
+                    >
                       <Text style={{ fontSize: 10, fontWeight: '600', color: IMPERIAL.success }}>
                         {item.badge}
                       </Text>
                     </View>
                   )}
                   <View style={{ flex: 1, alignItems: 'flex-end' }}>
-                    <Text style={{ fontSize: 14, fontWeight: '500', color: IMPERIAL.text }}>
-                      {item.label}
-                    </Text>
+                    <Text style={{ fontSize: 14, fontWeight: '500', color: IMPERIAL.text }}>{item.label}</Text>
                     <Text style={{ fontSize: 11, color: IMPERIAL.textTertiary, marginTop: 1 }}>
                       {item.subtitle}
                     </Text>
@@ -270,7 +235,8 @@ export default function SettingsScreen() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 8,
-          }}>
+          }}
+        >
           <Text style={{ fontSize: 14, fontWeight: '600', color: '#EF4444' }}>تسجيل الخروج</Text>
           <LogOutIcon size={18} color="#EF4444" />
         </TouchableOpacity>
@@ -278,9 +244,7 @@ export default function SettingsScreen() {
 
       <View style={{ alignItems: 'center', paddingVertical: 12 }}>
         <GoldenEagle size={24} />
-        <Text style={{ fontSize: 11, color: IMPERIAL.textTertiary, marginTop: 4 }}>
-          سوريا AI v1.0.0
-        </Text>
+        <Text style={{ fontSize: 11, color: IMPERIAL.textTertiary, marginTop: 4 }}>سوريا AI v1.0.0</Text>
       </View>
 
       <Modal visible={showApiKeysModal} animationType="slide" transparent>
@@ -293,7 +257,8 @@ export default function SettingsScreen() {
               maxHeight: '85%',
               borderWidth: 1,
               borderColor: IMPERIAL.border,
-            }}>
+            }}
+          >
             <View
               style={{
                 flexDirection: 'row',
@@ -302,20 +267,17 @@ export default function SettingsScreen() {
                 padding: 16,
                 borderBottomWidth: 1,
                 borderBottomColor: IMPERIAL.border,
-              }}>
+              }}
+            >
               <TouchableOpacity onPress={() => setShowApiKeysModal(false)}>
                 <XIcon size={20} color={IMPERIAL.textTertiary} />
               </TouchableOpacity>
-              <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold }}>
-                مفاتيح API
-              </Text>
+              <Text style={{ fontSize: 16, fontWeight: '700', color: IMPERIAL.gold }}>مفاتيح API</Text>
               <TouchableOpacity onPress={saveApiKeys}>
                 <SaveIcon size={20} color={IMPERIAL.success} />
               </TouchableOpacity>
             </View>
-            <ScrollView
-              style={{ padding: 16 }}
-              contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}>
+            <ScrollView style={{ padding: 16 }} contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}>
               <Text
                 style={{
                   fontSize: 12,
@@ -323,7 +285,8 @@ export default function SettingsScreen() {
                   textAlign: 'right',
                   marginBottom: 16,
                   lineHeight: 20,
-                }}>
+                }}
+              >
                 أدخل مفاتيح API لموفري الذكاء الاصطناعي. المفاتيح تُخزّن محلياً على جهازك فقط.
               </Text>
               {PROVIDER_KEYS.map((pk) => (
@@ -335,7 +298,8 @@ export default function SettingsScreen() {
                       color: IMPERIAL.text,
                       textAlign: 'right',
                       marginBottom: 6,
-                    }}>
+                    }}
+                  >
                     {pk.label}
                   </Text>
                   <View
@@ -347,10 +311,9 @@ export default function SettingsScreen() {
                       borderWidth: 1,
                       borderColor: tempKeys[pk.envKey] ? IMPERIAL.borderFocus : IMPERIAL.border,
                       paddingHorizontal: 12,
-                    }}>
-                    <TouchableOpacity
-                      onPress={() => toggleKeyVisibility(pk.envKey)}
-                      style={{ padding: 4 }}>
+                    }}
+                  >
+                    <TouchableOpacity onPress={() => toggleKeyVisibility(pk.envKey)} style={{ padding: 4 }}>
                       {visibleKeys[pk.envKey] ? (
                         <EyeOffIcon size={16} color={IMPERIAL.textTertiary} />
                       ) : (
@@ -360,7 +323,8 @@ export default function SettingsScreen() {
                     {tempKeys[pk.envKey] && (
                       <TouchableOpacity
                         onPress={() => setTempKeys((p) => ({ ...p, [pk.envKey]: '' }))}
-                        style={{ padding: 4, marginLeft: 4 }}>
+                        style={{ padding: 4, marginLeft: 4 }}
+                      >
                         <XIcon size={14} color={IMPERIAL.error} />
                       </TouchableOpacity>
                     )}

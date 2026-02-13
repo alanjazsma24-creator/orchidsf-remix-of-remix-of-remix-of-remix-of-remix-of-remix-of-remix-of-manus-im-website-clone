@@ -27,7 +27,8 @@ function getFileIcon(name: string, size: number) {
     return <ImageIcon {...iconProps} color={IMPERIAL.agent.researching} />;
   if (['css', 'scss', 'less'].includes(ext))
     return <FileCodeIcon {...iconProps} color={IMPERIAL.agent.planning} />;
-  if (['html', 'xml'].includes(ext)) return <FileCodeIcon {...iconProps} color={IMPERIAL.error} />;
+  if (['html', 'xml'].includes(ext))
+    return <FileCodeIcon {...iconProps} color={IMPERIAL.error} />;
   return <FileIcon {...iconProps} color={IMPERIAL.fileTree.fileIcon} />;
 }
 
@@ -59,7 +60,8 @@ function FileTreeItem({ node, depth }: { node: FileNode; depth: number }) {
           borderRightWidth: isSelected ? 2 : 0,
           borderRightColor: IMPERIAL.gold,
           gap: 4,
-        }}>
+        }}
+      >
         {isFolder ? (
           node.isExpanded ? (
             <ChevronDownIcon size={12} color={IMPERIAL.textTertiary} />
@@ -87,7 +89,8 @@ function FileTreeItem({ node, depth }: { node: FileNode; depth: number }) {
             color: isSelected ? IMPERIAL.gold : IMPERIAL.text,
             fontWeight: isSelected ? '600' : '400',
             flex: 1,
-          }}>
+          }}
+        >
           {node.name}
         </Text>
 
@@ -98,23 +101,18 @@ function FileTreeItem({ node, depth }: { node: FileNode; depth: number }) {
               height: 6,
               borderRadius: 3,
               backgroundColor:
-                node.gitStatus === 'added'
-                  ? IMPERIAL.git.added
-                  : node.gitStatus === 'modified'
-                    ? IMPERIAL.git.modified
-                    : node.gitStatus === 'deleted'
-                      ? IMPERIAL.git.deleted
-                      : IMPERIAL.git.untracked,
+                node.gitStatus === 'added' ? IMPERIAL.git.added :
+                node.gitStatus === 'modified' ? IMPERIAL.git.modified :
+                node.gitStatus === 'deleted' ? IMPERIAL.git.deleted :
+                IMPERIAL.git.untracked,
             }}
           />
         )}
       </TouchableOpacity>
 
-      {isFolder &&
-        node.isExpanded &&
-        node.children?.map((child) => (
-          <FileTreeItem key={child.path} node={child} depth={depth + 1} />
-        ))}
+      {isFolder && node.isExpanded && node.children?.map((child) => (
+        <FileTreeItem key={child.path} node={child} depth={depth + 1} />
+      ))}
     </View>
   );
 }
@@ -133,14 +131,13 @@ export default function FileTree() {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-        }}>
+        }}
+      >
         <Text style={{ fontSize: 11, fontWeight: '700', color: IMPERIAL.gold, letterSpacing: 0.5 }}>
           المستكشف
         </Text>
       </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
         {fileTree.map((node) => (
           <FileTreeItem key={node.path} node={node} depth={0} />
         ))}

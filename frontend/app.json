@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "yousef-bolt",
-    "slug": "38c26144-da3c-4912-9bc6-b38c19e0f050",
+    "name": "Youbolt",
+    "slug": "8d4ba518-e365-4f20-be84-cde8c989f77f",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.orchids.remixofremixofremixofremixofremixofremixofremixofremixofremixofremixofmanusimwebsiteclone"
+      "bundleIdentifier": "com.orchids.remixofremixofremixofremixofremixofremixofremixofremixofremixofmanusimwebsiteclone"
     },
     "android": {
       "edgeToEdgeEnabled": true,
@@ -26,7 +26,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#002623"
       },
-      "package": "com.orchids.remixofremixofremixofremixofremixofremixofremixofremixofremixofremixofmanusimwebsiteclone"
+      "package": "com.orchids.remixofremixofremixofremixofremixofremixofremixofremixofremixofmanusimwebsiteclone"
     },
     "web": {
       "bundler": "metro",

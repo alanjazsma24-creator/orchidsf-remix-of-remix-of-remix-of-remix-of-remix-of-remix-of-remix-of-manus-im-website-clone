@@ -118,29 +118,19 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
 
   loadSettings: async () => {
     try {
-      const [
-        apiKeysStr,
-        provider,
-        model,
-        enabledStr,
-        localUrlsStr,
-        ghToken,
-        glToken,
-        glUrl,
-        maxTok,
-        temp,
-      ] = await Promise.all([
-        AsyncStorage.getItem('apiKeys'),
-        AsyncStorage.getItem('selectedProvider'),
-        AsyncStorage.getItem('selectedModel'),
-        AsyncStorage.getItem('enabledProviders'),
-        AsyncStorage.getItem('localModelUrls'),
-        AsyncStorage.getItem('githubToken'),
-        AsyncStorage.getItem('gitlabToken'),
-        AsyncStorage.getItem('gitlabUrl'),
-        AsyncStorage.getItem('maxTokens'),
-        AsyncStorage.getItem('temperature'),
-      ]);
+      const [apiKeysStr, provider, model, enabledStr, localUrlsStr, ghToken, glToken, glUrl, maxTok, temp] =
+        await Promise.all([
+          AsyncStorage.getItem('apiKeys'),
+          AsyncStorage.getItem('selectedProvider'),
+          AsyncStorage.getItem('selectedModel'),
+          AsyncStorage.getItem('enabledProviders'),
+          AsyncStorage.getItem('localModelUrls'),
+          AsyncStorage.getItem('githubToken'),
+          AsyncStorage.getItem('gitlabToken'),
+          AsyncStorage.getItem('gitlabUrl'),
+          AsyncStorage.getItem('maxTokens'),
+          AsyncStorage.getItem('temperature'),
+        ]);
       set({
         apiKeys: apiKeysStr ? JSON.parse(apiKeysStr) : {},
         selectedProvider: provider || 'OpenRouter',

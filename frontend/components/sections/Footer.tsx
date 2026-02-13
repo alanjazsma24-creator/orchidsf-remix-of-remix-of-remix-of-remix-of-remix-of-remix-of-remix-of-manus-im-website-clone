@@ -31,7 +31,8 @@ export default function Footer() {
         paddingVertical: 32,
         paddingHorizontal: 20,
         marginTop: 40,
-      }}>
+      }}
+    >
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 20, marginBottom: 28 }}>
         {footerSections.map((section) => (
           <View key={section.title} style={{ width: '45%', marginBottom: 12 }}>
@@ -42,7 +43,8 @@ export default function Footer() {
                 color: IMPERIAL.gold,
                 marginBottom: 10,
                 textAlign: 'right',
-              }}>
+              }}
+            >
               {section.title}
             </Text>
             {section.links.map((link) => (
@@ -64,7 +66,8 @@ export default function Footer() {
             justifyContent: 'center',
             gap: 8,
             marginBottom: 8,
-          }}>
+          }}
+        >
           <GoldenEagle size={28} />
           <Text style={{ fontSize: 15, fontWeight: '700', color: IMPERIAL.gold, letterSpacing: 1 }}>
             سوريا AI

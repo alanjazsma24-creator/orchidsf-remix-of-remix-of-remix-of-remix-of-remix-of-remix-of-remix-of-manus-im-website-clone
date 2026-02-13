@@ -20,7 +20,7 @@ function sendErrorToIframeParent(error: any, errorInfo?: any) {
       return;
     }
 
-    console.log('Sending error to parent:', {
+    console.debug('Sending error to parent:', {
       error,
       errorInfo,
       referrer: document.referrer,

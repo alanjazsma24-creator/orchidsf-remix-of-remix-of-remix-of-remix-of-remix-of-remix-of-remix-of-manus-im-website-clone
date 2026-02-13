@@ -23,7 +23,7 @@ export function useChat() {
 
   useEffect(() => {
     loadSessions();
-  }, [loadSessions]);
+  }, []);
 
   const sendMessage = useCallback(
     async (text: string) => {
@@ -93,18 +93,7 @@ export function useChat() {
         finishStreaming(assistantId);
       }
     },
-    [
-      isStreaming,
-      selectedProvider,
-      selectedModel,
-      apiKeys,
-      activeSessionId,
-      addMessage,
-      updateMessage,
-      setStreaming,
-      finishStreaming,
-      createSession,
-    ]
+    [isStreaming, selectedProvider, selectedModel, apiKeys, activeSessionId, addMessage, updateMessage, setStreaming, finishStreaming, createSession],
   );
 
   return {

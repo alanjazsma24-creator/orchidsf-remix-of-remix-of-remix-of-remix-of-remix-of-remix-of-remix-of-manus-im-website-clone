@@ -102,13 +102,8 @@ export const useChatStore = create<ChatState>((set, get) => ({
       if (s.activeSessionId) {
         sessions = sessions.map((ses) =>
           ses.id === s.activeSessionId
-            ? {
-                ...ses,
-                messages: newMessages,
-                updatedAt: Date.now(),
-                title: extractTitle(newMessages),
-              }
-            : ses
+            ? { ...ses, messages: newMessages, updatedAt: Date.now(), title: extractTitle(newMessages) }
+            : ses,
         );
       }
       return { messages: newMessages, sessions };
@@ -122,9 +117,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       let sessions = s.sessions;
       if (s.activeSessionId) {
         sessions = sessions.map((ses) =>
-          ses.id === s.activeSessionId
-            ? { ...ses, messages: newMessages, updatedAt: Date.now() }
-            : ses
+          ses.id === s.activeSessionId ? { ...ses, messages: newMessages, updatedAt: Date.now() } : ses,
         );
       }
       return { messages: newMessages, sessions };
@@ -139,9 +132,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       let sessions = s.sessions;
       if (s.activeSessionId) {
         sessions = sessions.map((ses) =>
-          ses.id === s.activeSessionId
-            ? { ...ses, messages: newMessages, updatedAt: Date.now() }
-            : ses
+          ses.id === s.activeSessionId ? { ...ses, messages: newMessages, updatedAt: Date.now() } : ses,
         );
       }
       return { messages: newMessages, sessions, isStreaming: false };
